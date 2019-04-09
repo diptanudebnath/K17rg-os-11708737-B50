@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+int main() 
+{
+      int arrival_time[10];
+      int  burst_time[10];
+      int  temp[10];
+      int i;
+      int smallest;
+      int count = 0;
+      int time;
+      int total;
+      double wait_time = 0;
+      double  turnaround_time = 0;
+      double end;
+      float average_waiting_time;
+      float average_turnaround_time;
+      printf("\n The Total Number of Processes are:\t");
+      scanf("%d", &total); 
+      printf("\nThe needed information of %d Processes\n", total);
+      
+      for(i = 0; i < total; i++)
+      {
+            printf("\n Please Enter Arrival Time:\t");
+            scanf("%d", &arrival_time[i]);
+            printf("Please Enter Burst Time:\t");
+            scanf("%d", &burst_time[i]); 
+            temp[i] = burst_time[i];
+      }
+      burst_time[8] = 8888;  
+      for(time = 0; count != total; time++)
+      {
+            smallest = 8;
+            for(i = 0; i < total; i++)
+            {
+                  if(arrival_time[i] <= time && burst_time[i] < burst_time[smallest] && burst_time[i] > 0)
+                  {
+                        smallest = i;
+                  }
+            }
+            burst_time[smallest]--;
+            if(burst_time[smallest] == 0)
+            {
+                  count++;
+                  end = time + 1;
+                  wait_time = wait_time + end - arrival_time[smallest] - temp[smallest];
+                  turnaround_time = turnaround_time + end - arrival_time[smallest];
+            }
+      }
+      average_waiting_time = wait_time / total; 
+      average_turnaround_time = turnaround_time / total;
+      
+      printf("\n\nOverall_Waiting Time:\t%lf\n", average_waiting_time);
+      printf("Overall_Turnaround Time:\t%lf\n", average_turnaround_time);
+      return 0;
+}
